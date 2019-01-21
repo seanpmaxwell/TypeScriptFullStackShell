@@ -1,0 +1,19 @@
+
+# GitIgnore file, prevent files/folders
+# from  being committed.
+
+
+# IntelliJ project files
+*.iml
+**/.idea/
+
+
+# Built/Transpiled files
+**/build/
+**/src/**/*.js
+**/src/**/*.js.map
+
+
+# Misc
+**/node_modules/
+**/package-lock.json
