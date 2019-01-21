@@ -1,11 +1,11 @@
-
 # GitIgnore file, prevent files/folders
 # from  being committed.
+# remove all cached files git rm -r --cached .
 
 
 # IntelliJ project files
 *.iml
-**/.idea/
+.idea/
 
 
 # Built/Transpiled files
