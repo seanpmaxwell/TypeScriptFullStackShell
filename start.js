@@ -5,6 +5,8 @@
  * created by Sean Maxwell, 1/21/2019
  */
 
+process.env.EXPRESS_PORT = '3001';
+
 
 if (process.argv[2] === 'dev') {
 
