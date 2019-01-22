@@ -20,7 +20,15 @@ class DemoController {
     private async sayHello(req: Request, res: Response): Promise<void> {
 
         try {
-            cinfo('API: "GET /api/say-hello" called with the name param: ' + req.params.name);
+
+            const name = req.params.name;
+
+            if (name === 'makeitfail') {
+                throw Error('User triggered failure');
+            }
+
+            cinfo('API: "GET /api/say-hello/:name" called with param: ' + name);
+
             res.status(250).json({response: this.SUC_MSG});
         } catch (err) {
             cerr(err);

@@ -24,7 +24,7 @@ describe('DemoController', () => {
 
         // Activate the routes
         const server = new TestServer();
-        server.setController(DemoController);
+        server.setController(demoController);
 
         // Start supertest
         agent = supertest.agent(server.getExpressInstance());
@@ -32,7 +32,7 @@ describe('DemoController', () => {
     });
 
 
-    describe('API: "/api/say-hello"', () => {
+    describe('API: "/api/say-hello/:name"', () => {
 
         const successMsg = demoController.SUC_MSG;
         const errMsg = demoController.ERR_MSG;
@@ -40,8 +40,7 @@ describe('DemoController', () => {
         it(`should return a JSON object with the message "${successMsg}" and a status code of 250
             if message was successful`, done => {
 
-            agent.get('/api/send-email')
-                .type('form')
+            agent.get('/api/say-hello/seanmaxwell')
                 .end((err, res) => {
 
                     if (err) { cerr(err); }
@@ -55,8 +54,7 @@ describe('DemoController', () => {
         it(`should return a JSON object with the message "${errMsg}" and a status code of 400
             if message was unsuccessful`, done => {
 
-            agent.get('/api/say-hello')
-                .type('form')
+            agent.get('/api/say-hello/makeitfail')
                 .end((err, res) => {
 
                     if (err) { cerr(err); }
