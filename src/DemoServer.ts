@@ -9,12 +9,12 @@ import * as express from 'express';
 import * as bodyParser from 'body-parser';
 import { Server } from '@overnightjs/core';
 import { cimp, cinfo } from 'simple-color-print';
-import DemoController from './controllers/DemoController';
+import DemoController from './controllers/demo/DemoController';
 
 
 class DemoServer extends Server {
 
-    private readonly _SERVER_START_MSG = 'Dashboard server started on port: ';
+    private readonly _SERVER_START_MSG = 'Demo server started on port: ';
     private readonly _DEV_MSG = 'Express Server is running in development mode. Start the React ' +
         'development server "npm run start:react" to develop front-end content. Back-end is ' +
         'currently running on port: ';
@@ -62,7 +62,7 @@ class DemoServer extends Server {
         cinfo('Starting server in production mode');
 
         if (process.env.LOCAL) {
-            const dir = path.join(__dirname, 'public/react/dashboard/');
+            const dir = path.join(__dirname, 'public/react/demo-react/');
             this.app_.set('views',  dir);
             this.app_.use(express.static(dir));
             this.app_.get('*', (req, res) => {
@@ -75,7 +75,7 @@ class DemoServer extends Server {
 
 
     public start(): void {
-        const port = process.env.EXPRESS_PORT || 3000;
+        const port = 3001;
         this.app_.listen(port, () => cimp(this._SERVER_START_MSG + port));
     }
 }
