@@ -16,14 +16,14 @@ module.exports = {
         __filename: false,
     },
     entry: {
-        app: ['./src/SampleServer.js']
+        app: ['./src/DemoServer.js']
     },
     module: {
         rules: [
             {
                 test: /\.js$/,
                 include: [
-                    path.resolve(__dirname, './src/SampleServer.js'),
+                    path.resolve(__dirname, './src/DemoServer.js'),
                     path.resolve(__dirname, './src/controllers/')
                 ],
                 exclude: /\.test.js$/
@@ -32,7 +32,7 @@ module.exports = {
     },
     output: {
         path: path.resolve(__dirname, "../build"),
-        filename: "application.bundle.js"
+        filename: "demo.bundle.js"
     },
     externals: [
         nodeExternals()
