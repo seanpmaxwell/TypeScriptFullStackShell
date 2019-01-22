@@ -19,6 +19,8 @@ class DemoServer extends Server {
         'development server "npm run start:react" to develop front-end content. Back-end is ' +
         'currently running on port: ';
 
+    private _PORT = 3001;
+
 
     constructor() {
         super();
@@ -51,7 +53,9 @@ class DemoServer extends Server {
 
 
     private _serveFrontEndDev(): void {
+
         cinfo('Starting server in development mode');
+
         const msg = this._DEV_MSG + process.env.EXPRESS_PORT;
         this.app_.get('*', (req, res) => res.send(msg));
     }
@@ -61,21 +65,23 @@ class DemoServer extends Server {
 
         cinfo('Starting server in production mode');
 
-        if (process.env.LOCAL) {
-            const dir = path.join(__dirname, 'public/react/demo-react/');
-            this.app_.set('views',  dir);
-            this.app_.use(express.static(dir));
-            this.app_.get('*', (req, res) => {
-                res.sendFile('index.html', {root: dir});
-            });
-        } else {
-            // setup aws connection information here
-        }
+        this._PORT = 3002;
+
+        const dir = path.join(__dirname, 'public/react/demo-react/');
+
+        // Set the static and views directory
+        this.app_.set('views',  dir);
+        this.app_.use(express.static(dir));
+
+        // Serve front-end content
+        this.app_.get('*', (req, res) => {
+            res.sendFile('index.html', {root: dir});
+        });
     }
 
 
     public start(): void {
-        const port = 3001;
+        const port = this._PORT;
         this.app_.listen(port, () => cimp(this._SERVER_START_MSG + port));
     }
 }
