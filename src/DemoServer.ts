@@ -81,8 +81,9 @@ class DemoServer extends Server {
 
 
     public start(): void {
-        const port = this._PORT;
-        this.app_.listen(port, () => cimp(this._SERVER_START_MSG + port));
+        this.app_.listen(this._PORT, () => {
+            cimp(this._SERVER_START_MSG + this._PORT);
+        });
     }
 }
 
