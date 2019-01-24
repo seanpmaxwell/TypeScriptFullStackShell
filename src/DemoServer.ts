@@ -26,8 +26,8 @@ class DemoServer extends Server {
         super();
 
         // Setup json middleware
-        this.app_.use(bodyParser.json());
-        this.app_.use(bodyParser.urlencoded({extended: true}));
+        this.app.use(bodyParser.json());
+        this.app.use(bodyParser.urlencoded({extended: true}));
 
         // Setup the controllers
         this._setupControllers();
@@ -57,7 +57,7 @@ class DemoServer extends Server {
         cinfo('Starting server in development mode');
 
         const msg = this._DEV_MSG + process.env.EXPRESS_PORT;
-        this.app_.get('*', (req, res) => res.send(msg));
+        this.app.get('*', (req, res) => res.send(msg));
     }
 
 
@@ -70,18 +70,18 @@ class DemoServer extends Server {
         const dir = path.join(__dirname, 'public/react/demo-react/');
 
         // Set the static and views directory
-        this.app_.set('views',  dir);
-        this.app_.use(express.static(dir));
+        this.app.set('views',  dir);
+        this.app.use(express.static(dir));
 
         // Serve front-end content
-        this.app_.get('*', (req, res) => {
+        this.app.get('*', (req, res) => {
             res.sendFile('index.html', {root: dir});
         });
     }
 
 
     public start(): void {
-        this.app_.listen(this._PORT, () => {
+        this.app.listen(this._PORT, () => {
             cimp(this._SERVER_START_MSG + this._PORT);
         });
     }
