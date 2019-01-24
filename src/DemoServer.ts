@@ -19,7 +19,7 @@ class DemoServer extends Server {
         'development server "npm run start:react" to develop front-end content. Back-end is ' +
         'currently running on port: ';
 
-    private _PORT = 3001;
+    private _port = 3001;
 
 
     constructor() {
@@ -65,7 +65,7 @@ class DemoServer extends Server {
 
         cinfo('Starting server in production mode');
 
-        this._PORT = 3002;
+        this._port = 3002;
 
         const dir = path.join(__dirname, 'public/react/demo-react/');
 
@@ -81,8 +81,8 @@ class DemoServer extends Server {
 
 
     public start(): void {
-        this.app.listen(this._PORT, () => {
-            cimp(this._SERVER_START_MSG + this._PORT);
+        this.app.listen(this._port, () => {
+            cimp(this._SERVER_START_MSG + this._port);
         });
     }
 }
