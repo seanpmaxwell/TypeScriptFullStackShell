@@ -13,16 +13,16 @@ class TestServer extends Server {
 
     constructor() {
         super();
-        this.app_.use(bodyParser.json());
-        this.app_.use(bodyParser.urlencoded({extended: true}));
+        this.app.use(bodyParser.json());
+        this.app.use(bodyParser.urlencoded({extended: true}));
     }
 
     public setController(ctlr: object): void {
-        super.addControllers_(ctlr);
+        super.addControllers(ctlr);
     }
 
     public getExpressInstance(): Application {
-        return this.app_;
+        return this.app;
     }
 }
 
