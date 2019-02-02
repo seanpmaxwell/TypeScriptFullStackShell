@@ -5,7 +5,7 @@
  * created by Sean Maxwell, 1/21/2019
  */
 
-import { cinfo, cerr } from 'simple-color-print'
+import { cinfo, cerr } from 'simple-color-print';
 
 
 if (process.argv[2] === 'dev') {
