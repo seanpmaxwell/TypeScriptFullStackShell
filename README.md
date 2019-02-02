@@ -7,8 +7,8 @@ Setting up a web application for full-stack TypeScript development
 and generate  source-maps.
 - `npm run start:react`: start the React app in dev mode. 
 - `npm run build` at _root/_ will build the app for production. Contents are output to _build/_.
-- `npm run test`: Run back-end unit-tests. If you want to run a specific unit test run `npm run test -- 
--u="path to the unit-test file"`, i.e. `npm run test -- -u="controllers/demo/DemoController"`. 
+- `npm run test`: Run back-end unit-tests. If you want to run a specific unit test run `npm run test -- "path to the unit-test file"`, 
+i.e. `npm run test -- "controllers/demo/DemoController"`. 
 Because source-map files are generated for map files too, debugging in IDEs should still work.
 
 ## Links
