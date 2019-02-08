@@ -17,7 +17,7 @@ class DemoController {
 
 
     @Get(':name')
-    private async sayHello(req: Request, res: Response): Promise<void> {
+    private sayHello(req: Request, res: Response): void {
 
         try {
 
