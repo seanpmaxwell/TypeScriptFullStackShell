@@ -6,21 +6,17 @@
  */
 
 import { cinfo, cerr } from 'simple-color-print';
+import DemoServer from './DemoServer';
 
 
-if (process.argv[2] === 'dev') {
+process.env.NODE_ENV = process.argv[2];
 
-    process.env.NODE_ENV = 'development';
-    require('./src/DemoServer');
+if (process.argv[2] !== 'test') {
 
-} else if (process.argv[2] === 'prod') {
+    let server = new DemoServer();
+    server.start();
 
-    process.env.NODE_ENV = 'production';
-    require('./build/demo.bundle');
-
-} else if (process.argv[2] === 'test') {
-
-    process.env.NODE_ENV = 'test';
+} else {
 
     const Jasmine = require('jasmine');
     let jasmine = new Jasmine();
@@ -28,13 +24,13 @@ if (process.argv[2] === 'dev') {
     jasmine.loadConfig({
         "spec_dir": "src",
         "spec_files": [
-            "./controllers/**/*.test.js"
+            "./controllers/**/*.test.ts"
         ],
         "stopSpecOnExpectationFailure": false,
         "random": true
     });
 
-    jasmine.onComplete(passed => {
+    jasmine.onComplete((passed: boolean) => {
 
         if (passed) {
             cinfo('All tests have passed :)');
@@ -43,9 +39,11 @@ if (process.argv[2] === 'dev') {
         }
     });
 
-    if (process.argv[3]) {
-        let test = `./src/${process.argv[3]}.test.js`;
-        jasmine.execute([test], test);
+    let testPath = process.argv[3];
+
+    if (testPath) {
+        testPath = `./src/${testPath}.test.ts`;
+        jasmine.execute([testPath]);
     } else {
         jasmine.execute();
     }

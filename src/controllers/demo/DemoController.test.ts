@@ -34,10 +34,9 @@ describe('DemoController', () => {
 
     describe('API: "/api/say-hello/:name"', () => {
 
-        const successMsg = demoController.SUC_MSG;
-        const errMsg = demoController.ERR_MSG;
+        const { SUC_MSG, ERR_MSG } = demoController;
 
-        it(`should return a JSON object with the message "${successMsg}" and a status code of 250
+        it(`should return a JSON object with the message "${SUC_MSG}" and a status code of 250
             if message was successful`, done => {
 
             agent.get('/api/say-hello/seanmaxwell')
@@ -46,12 +45,12 @@ describe('DemoController', () => {
                     if (err) { cerr(err); }
 
                     expect(res.status).toBe(250);
-                    expect(res.body.response).toBe(successMsg);
+                    expect(res.body.response).toBe(SUC_MSG);
                     done();
                 });
         });
 
-        it(`should return a JSON object with the message "${errMsg}" and a status code of 400
+        it(`should return a JSON object with the message "${ERR_MSG}" and a status code of 400
             if message was unsuccessful`, done => {
 
             agent.get('/api/say-hello/makeitfail')
@@ -60,7 +59,7 @@ describe('DemoController', () => {
                     if (err) { cerr(err); }
 
                     expect(res.status).toBe(400);
-                    expect(res.body.response).toBe(errMsg);
+                    expect(res.body.response).toBe(ERR_MSG);
                     done();
                 });
         });
