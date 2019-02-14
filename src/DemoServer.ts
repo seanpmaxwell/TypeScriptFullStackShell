@@ -41,12 +41,12 @@ class DemoServer extends Server {
 
     private setupControllers(): void {
 
-        const ctlrs: any = {...controllers};
         const ctlrInstances = [];
 
-        for (const name in ctlrs) {
-            if (controllers.hasOwnProperty(name) && typeof ctlrs[name] === 'function') {
-                ctlrInstances.push(new ctlrs[name]());
+        for (const name in controllers) {
+            if (controllers.hasOwnProperty(name)) {
+                let Controller = (controllers as any)[name];
+                ctlrInstances.push(new Controller);
             }
         }
 
