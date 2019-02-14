@@ -4,7 +4,7 @@
   "description": "demonstrate how to do full-stack TypeScript development",
   "main": "src/start.js",
   "scripts": {
-    "start": "npm install --only=prod && node demo.bundle.js production",
+    "start": "npm install --only=prod && node ./build/demo.bundle.js",
     "start:express": "nodemon --config \"./util/nodemon.json\"/",
     "start:react": "cd ./src/public/react/demo-react/ && npm start",
     "test": "ts-node ./src/start.ts test",
@@ -30,7 +30,7 @@
   },
   "homepage": "https://github.com/seanpmaxwell/TypeScriptFullStackShell#readme",
   "dependencies": {
-    "@overnightjs/core": "^1.4.0",
+    "@overnightjs/core": "^1.4.1",
     "express": "^4.16.4",
     "simple-color-print": "^1.0.5"
   },

@@ -4,6 +4,7 @@
     "module": "commonjs",
     "noImplicitAny": true,
     "baseUrl": "./",
+    "outDir": "./temp",
     "sourceMap": true,
     "removeComments": true,
     "experimentalDecorators": true,
@@ -24,10 +25,12 @@
     ]
   },
   "include": [
+    "./src/start.ts",
     "./src/DemoServer.ts",
-    "./src/controllers/**/*"
+    "./src/controllers/**/*.ts"
   ],
   "exclude": [
+    "./src/controllers/**/*.test.ts",
     "**/node_modules/",
     "./src/public/"
   ]

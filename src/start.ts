@@ -9,8 +9,8 @@ import { cinfo, cerr } from 'simple-color-print';
 import DemoServer from './DemoServer';
 
 
-process.env.NODE_ENV = process.argv[2];
 
+// Start the server or run tests
 if (process.argv[2] !== 'test') {
 
     let server = new DemoServer();
@@ -19,7 +19,7 @@ if (process.argv[2] !== 'test') {
 } else {
 
     const Jasmine = require('jasmine');
-    let jasmine = new Jasmine();
+    const jasmine = new Jasmine();
 
     jasmine.loadConfig({
         "spec_dir": "src",

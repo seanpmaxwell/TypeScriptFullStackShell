@@ -5,8 +5,14 @@
 # Remove existing production folder
 rm -rf ./build/
 
-# Bundle Express code
-tsc && webpack --config ./util/webpack-back.config.js
+# Transpile .ts files to temp/
+tsc
+
+# Bundle back-end code
+webpack --config ./util/webpack-back.config.js
+
+# Remove temp/
+rm -rf ./temp/
 
 # Create the directory for React
 mkdir -p ./build/public/react/

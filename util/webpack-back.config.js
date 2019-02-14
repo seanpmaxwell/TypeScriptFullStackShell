@@ -16,17 +16,18 @@ module.exports = {
         __filename: false,
     },
     entry: {
-        app: ['./src/DemoServer.js']
+        app: ['./temp/start.js']
     },
     module: {
         rules: [
             {
                 test: /\.js$/,
                 include: [
-                    path.resolve(__dirname, './src/DemoServer.js'),
-                    path.resolve(__dirname, './src/controllers/')
+                    path.resolve(__dirname, './temp/')
                 ],
-                exclude: /\.test.js$/
+                exclude: [
+                    path.resolve(__dirname, './temp/public/')
+                ]
             }
         ]
     },

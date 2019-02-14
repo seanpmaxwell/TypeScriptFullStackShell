@@ -7,6 +7,7 @@
 import * as path from 'path';
 import * as express from 'express';
 import * as bodyParser from 'body-parser';
+import * as controllers from './controllers';
 
 import { Server } from '@overnightjs/core';
 import { cimp, cinfo } from 'simple-color-print';
@@ -27,14 +28,29 @@ class DemoServer extends Server {
 
         this.app.use(bodyParser.json());
         this.app.use(bodyParser.urlencoded({extended: true}));
-        super.addControllers();
+        this.setupControllers();
 
         // Point to front-end code
-        if (process.env.NODE_ENV === 'development') {
+        if (process.env.NODE_ENV !== 'production') {
             this._serveFrontEndDev();
-        } else if (process.env.NODE_ENV === 'production') {
+        } else {
             this._serveFrontEndProd();
         }
+    }
+
+
+    private setupControllers(): void {
+
+        const ctlrs: any = {...controllers};
+        const ctlrInstances = [];
+
+        for (const name in ctlrs) {
+            if (controllers.hasOwnProperty(name) && typeof ctlrs[name] === 'function') {
+                ctlrInstances.push(new ctlrs[name]());
+            }
+        }
+
+        super.addControllers(ctlrInstances);
     }
 
 
