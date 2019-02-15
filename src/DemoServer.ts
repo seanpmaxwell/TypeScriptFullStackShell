@@ -46,7 +46,7 @@ class DemoServer extends Server {
         for (const name in controllers) {
             if (controllers.hasOwnProperty(name)) {
                 let Controller = (controllers as any)[name];
-                ctlrInstances.push(new Controller);
+                ctlrInstances.push(new Controller());
             }
         }
 
@@ -58,7 +58,7 @@ class DemoServer extends Server {
 
         cinfo('Starting server in development mode');
 
-        const msg = this._DEV_MSG + process.env.EXPRESS_PORT;
+        const msg = this._DEV_MSG + this._port;
         this.app.get('*', (req, res) => res.send(msg));
     }
 
