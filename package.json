@@ -4,9 +4,8 @@
   "description": "demonstrate how to do full-stack TypeScript development",
   "main": "src/start.js",
   "scripts": {
-    "start": "npm install --only=prod && node ./build/demo.bundle.js",
+    "start": "npm install --only=prod && node ./build/start.js",
     "start:express": "nodemon --config \"./util/nodemon.json\"/",
-    "start:react": "cd ./src/public/react/demo-react/ && npm start",
     "test": "ts-node ./src/start.ts test",
     "build": "sh ./util/buildForProd.sh"
   },
@@ -46,9 +45,6 @@
     "ts-node": "^8.0.2",
     "tsc": "^1.20150623.0",
     "tslint": "^5.12.1",
-    "typescript": "^3.2.4",
-    "webpack": "^4.19.1",
-    "webpack-cli": "^3.2.1",
-    "webpack-node-externals": "^1.7.2"
+    "typescript": "^3.2.4"
   }
 }

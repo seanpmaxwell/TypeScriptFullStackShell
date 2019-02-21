@@ -1,18 +1,18 @@
 #!/usr/bin/env bash
 
-## Bundle Express and React files
+
+
+### Bundle BackEnd ###
 
 # Remove existing production folder
 rm -rf ./build/
 
-# Transpile .ts files to temp/
-tsc
+# Transpile .ts to .js
+tsc --sourceMap false
 
-# Bundle back-end code
-webpack --config ./util/webpack-back.config.js
 
-# Remove temp/
-rm -rf ./temp/
+
+### Bundle FrontEnd ###
 
 # Create the directory for React
 mkdir -p ./build/public/react/

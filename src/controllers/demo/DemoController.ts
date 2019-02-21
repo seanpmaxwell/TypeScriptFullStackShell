@@ -17,7 +17,7 @@ class DemoController {
 
 
     @Get(':name')
-    private sayHello(req: Request, res: Response): void {
+    private sayHello(req: Request, res: Response) {
 
         try {
 

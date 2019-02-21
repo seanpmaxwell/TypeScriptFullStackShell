@@ -2,9 +2,9 @@
   "compileOnSave": true,
   "compilerOptions": {
     "module": "commonjs",
-    "noImplicitAny": true,
+    "strict": true,
     "baseUrl": "./",
-    "outDir": "./temp",
+    "outDir": "build",
     "sourceMap": true,
     "removeComments": true,
     "experimentalDecorators": true,
@@ -25,13 +25,10 @@
     ]
   },
   "include": [
-    "./src/start.ts",
-    "./src/DemoServer.ts",
-    "./src/controllers/**/*.ts"
+    "./src/**/*.ts"
   ],
   "exclude": [
-    "./src/controllers/**/*.test.ts",
-    "**/node_modules/",
+    "./src/**/*.test.ts",
     "./src/public/"
   ]
 }
