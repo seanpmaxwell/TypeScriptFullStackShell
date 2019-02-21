@@ -4,7 +4,7 @@
   "description": "demonstrate how to do full-stack TypeScript development",
   "main": "src/start.js",
   "scripts": {
-    "start": "npm install --only=prod && node ./build/start.js",
+    "start": "npm install --only=prod && NODE_ENV=production node ./build/start.js",
     "start:express": "nodemon --config \"./util/nodemon.json\"/",
     "test": "ts-node ./src/start.ts test",
     "build": "sh ./util/buildForProd.sh"
