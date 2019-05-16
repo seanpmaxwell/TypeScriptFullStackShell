@@ -15,9 +15,8 @@ import { cimp, cinfo } from 'simple-color-print';
 
 class DemoServer extends Server {
 
-    private readonly _SERVER_START_MSG = 'Demo server started on port: ';
-    private readonly _DEV_MSG = 'Express Server is running in development mode. Start the React ' +
-        'development server "npm run start:react" to develop front-end content. Back-end is ' +
+    private readonly SERVER_START_MSG = 'Demo server started on port: ';
+    private readonly DEV_MSG = 'Express Server is running in development mode. Back-end is ' +
         'currently running on port: ';
 
     private _port = 3001;
@@ -58,7 +57,7 @@ class DemoServer extends Server {
 
         cinfo('Starting server in development mode');
 
-        const msg = this._DEV_MSG + this._port;
+        const msg = this.DEV_MSG + this._port;
         this.app.get('*', (req, res) => res.send(msg));
     }
 
@@ -84,7 +83,7 @@ class DemoServer extends Server {
 
     public start(): void {
         this.app.listen(this._port, () => {
-            cimp(this._SERVER_START_MSG + this._port);
+            cimp(this.SERVER_START_MSG + this._port);
         });
     }
 }
