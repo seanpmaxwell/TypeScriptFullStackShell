@@ -8,7 +8,7 @@ import * as supertest from 'supertest';
 
 import {} from 'jasmine';
 import { SuperTest, Test } from 'supertest';
-import { cerr } from 'simple-color-print';
+import { Logger } from '@overnightjs/logger';
 
 import TestServer from '../shared/TestServer.test';
 import DemoController from './DemoController';
@@ -21,12 +21,8 @@ describe('DemoController', () => {
 
 
     beforeAll(done => {
-
-        // Activate the routes
         const server = new TestServer();
         server.setController(demoController);
-
-        // Start supertest
         agent = supertest.agent(server.getExpressInstance());
         done();
     });
@@ -34,18 +30,18 @@ describe('DemoController', () => {
 
     describe('API: "/api/say-hello/:name"', () => {
 
-        const { SUC_MSG, ERR_MSG } = demoController;
+        const { SUCCESS_MSG, ERR_MSG } = DemoController;
 
-        it(`should return a JSON object with the message "${SUC_MSG}" and a status code of 250
+        it(`should return a JSON object with the message "${SUCCESS_MSG}" and a status code of 250
             if message was successful`, done => {
 
             agent.get('/api/say-hello/seanmaxwell')
                 .end((err, res) => {
-
-                    if (err) { cerr(err); }
-
+                    if (err) {
+                        Logger.Err(err, true);
+                    }
                     expect(res.status).toBe(250);
-                    expect(res.body.response).toBe(SUC_MSG);
+                    expect(res.body.response).toBe(SUCCESS_MSG);
                     done();
                 });
         });
@@ -55,9 +51,9 @@ describe('DemoController', () => {
 
             agent.get('/api/say-hello/makeitfail')
                 .end((err, res) => {
-
-                    if (err) { cerr(err); }
-
+                    if (err) {
+                        Logger.Err(err, true);
+                    }
                     expect(res.status).toBe(400);
                     expect(res.body.response).toBe(ERR_MSG);
                     done();

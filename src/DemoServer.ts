@@ -10,7 +10,7 @@ import * as bodyParser from 'body-parser';
 import * as controllers from './controllers';
 
 import { Server } from '@overnightjs/core';
-import { cimp, cinfo } from 'simple-color-print';
+import { Logger } from '@overnightjs/logger';
 
 
 class DemoServer extends Server {
@@ -31,40 +31,36 @@ class DemoServer extends Server {
 
         // Point to front-end code
         if (process.env.NODE_ENV !== 'production') {
-            this._serveFrontEndDev();
+            this.serveFrontEndDev();
         } else {
-            this._serveFrontEndProd();
+            this.serveFrontEndProd();
         }
     }
 
 
     private setupControllers(): void {
-
         const ctlrInstances = [];
-
         for (const name in controllers) {
             if (controllers.hasOwnProperty(name)) {
                 let Controller = (controllers as any)[name];
                 ctlrInstances.push(new Controller());
             }
         }
-
+        this.showLogs = true;
         super.addControllers(ctlrInstances);
     }
 
 
-    private _serveFrontEndDev(): void {
-
-        cinfo('Starting server in development mode');
-
+    private serveFrontEndDev(): void {
+        Logger.Info('Starting server in development mode');
         const msg = this.DEV_MSG + this._port;
         this.app.get('*', (req, res) => res.send(msg));
     }
 
 
-    private _serveFrontEndProd(): void {
+    private serveFrontEndProd(): void {
 
-        cinfo('Starting server in production mode');
+        Logger.Info('Starting server in production mode');
 
         this._port = 3002;
 
@@ -83,7 +79,7 @@ class DemoServer extends Server {
 
     public start(): void {
         this.app.listen(this._port, () => {
-            cimp(this.SERVER_START_MSG + this._port);
+            Logger.Imp(this.SERVER_START_MSG + this._port);
         });
     }
 }

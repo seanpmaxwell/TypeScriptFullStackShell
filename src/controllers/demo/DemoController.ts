@@ -5,34 +5,32 @@
  */
 
 import { Controller, Get } from '@overnightjs/core';
+import { Logger } from '@overnightjs/logger';
 import { Request, Response } from 'express';
-import { cinfo, cerr } from 'simple-color-print';
 
 
 @Controller('api/say-hello')
 class DemoController {
 
-    public readonly SUC_MSG = 'hello';
-    public readonly ERR_MSG = 'can\'t say hello';
+    public static readonly SUCCESS_MSG = 'hello';
+    public static readonly ERR_MSG = 'can\'t say hello';
 
 
     @Get(':name')
     private sayHello(req: Request, res: Response) {
-
         try {
-
-            const name = req.params.name;
-
-            if (name === 'makeitfail') {
+            if (req.params.name === 'makeitfail') {
                 throw Error('User triggered failure');
             }
-
-            cinfo('API: "GET /api/say-hello/:name" called with param: ' + name);
-
-            res.status(250).json({response: this.SUC_MSG});
+            Logger.Info('API: "GET /api/say-hello/:name" called with param: ' + name);
+            res.status(250).json({
+                response: DemoController.SUCCESS_MSG,
+            });
         } catch (err) {
-            cerr(err);
-            res.status(400).json({response: this.ERR_MSG});
+            Logger.Err(err, true);
+            res.status(400).json({
+                response: DemoController.ERR_MSG,
+            });
         }
     }
 }

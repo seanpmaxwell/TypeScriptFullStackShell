@@ -5,7 +5,7 @@
  * created by Sean Maxwell, 1/21/2019
  */
 
-import { cinfo, cerr } from 'simple-color-print';
+import { Logger } from '@overnightjs/logger';
 import DemoServer from './DemoServer';
 
 
@@ -32,9 +32,9 @@ if (process.argv[2] !== 'test') {
     jasmine.onComplete((passed: boolean) => {
 
         if (passed) {
-            cinfo('All tests have passed :)');
+            Logger.Info('All tests have passed :)');
         } else {
-            cerr('At least one test has failed :(');
+            Logger.Err('At least one test has failed :(');
         }
     });
 
