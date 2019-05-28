@@ -11,6 +11,7 @@ import DemoServer from './DemoServer';
 // Start the server or run tests
 if (process.env.NODE_ENV !== 'testing') {
 
+    process.env.NODE_ENV = 'development';
     let server = new DemoServer();
     server.start(process.env.NODE_ENV === 'development' ? 3001 : 8081);
 

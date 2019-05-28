@@ -12,18 +12,19 @@ import { Request, Response } from 'express';
 @Controller('api/say-hello')
 class DemoController {
 
-    public static readonly SUCCESS_MSG = 'hello';
+    public static readonly SUCCESS_MSG = 'hello ';
 
 
     @Get(':name')
     private sayHello(req: Request, res: Response) {
         try {
-            if (req.params.name === 'make_it_fail') {
+            const { name } = req.params;
+            if (name === 'make_it_fail') {
                 throw Error('User triggered failure');
             }
             Logger.Info('API: "GET /api/say-hello/:name" called with param: ' + name);
             res.status(250).json({
-                message: DemoController.SUCCESS_MSG,
+                message: DemoController.SUCCESS_MSG + name,
             });
         } catch (err) {
             Logger.Err(err, true);
