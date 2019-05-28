@@ -16,22 +16,19 @@ import { Logger } from '@overnightjs/logger';
 class DemoServer extends Server {
 
     private readonly SERVER_START_MSG = 'Demo server started on port: ';
-    private readonly DEV_MSG = 'Express Server is running in development mode. Back-end is ' +
-        'currently running on port: ';
-
-    private _port = 3001;
+    private readonly DEV_MSG = 'Express Server is running in development mode. Not front-end ' +
+        'content is being served.';
 
 
     constructor() {
         super();
-
         this.app.use(bodyParser.json());
         this.app.use(bodyParser.urlencoded({extended: true}));
         this.setupControllers();
-
         // Point to front-end code
         if (process.env.NODE_ENV !== 'production') {
-            this.serveFrontEndDev();
+            Logger.Info('Starting server in development mode');
+            this.app.get('*', (req, res) => res.send(this.DEV_MSG));
         } else {
             this.serveFrontEndProd();
         }
@@ -51,25 +48,11 @@ class DemoServer extends Server {
     }
 
 
-    private serveFrontEndDev(): void {
-        Logger.Info('Starting server in development mode');
-        const msg = this.DEV_MSG + this._port;
-        this.app.get('*', (req, res) => res.send(msg));
-    }
-
-
     private serveFrontEndProd(): void {
-
-        Logger.Info('Starting server in production mode');
-
-        this._port = 3002;
-
         const dir = path.join(__dirname, 'public/react/demo-react/');
-
         // Set the static and views directory
         this.app.set('views',  dir);
         this.app.use(express.static(dir));
-
         // Serve front-end content
         this.app.get('*', (req, res) => {
             res.sendFile('index.html', {root: dir});
@@ -77,9 +60,9 @@ class DemoServer extends Server {
     }
 
 
-    public start(): void {
-        this.app.listen(this._port, () => {
-            Logger.Imp(this.SERVER_START_MSG + this._port);
+    public start(port: number): void {
+        this.app.listen(port, () => {
+            Logger.Imp(this.SERVER_START_MSG + port);
         });
     }
 }

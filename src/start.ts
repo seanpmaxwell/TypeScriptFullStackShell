@@ -8,12 +8,11 @@
 import { Logger } from '@overnightjs/logger';
 import DemoServer from './DemoServer';
 
-
 // Start the server or run tests
-if (process.argv[2] !== 'test') {
+if (process.env.NODE_ENV !== 'testing') {
 
     let server = new DemoServer();
-    server.start();
+    server.start(process.env.NODE_ENV === 'development' ? 3001 : 8081);
 
 } else {
 
@@ -30,7 +29,6 @@ if (process.argv[2] !== 'test') {
     });
 
     jasmine.onComplete((passed: boolean) => {
-
         if (passed) {
             Logger.Info('All tests have passed :)');
         } else {

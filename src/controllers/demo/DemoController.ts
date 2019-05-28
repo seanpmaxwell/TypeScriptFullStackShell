@@ -13,23 +13,22 @@ import { Request, Response } from 'express';
 class DemoController {
 
     public static readonly SUCCESS_MSG = 'hello';
-    public static readonly ERR_MSG = 'can\'t say hello';
 
 
     @Get(':name')
     private sayHello(req: Request, res: Response) {
         try {
-            if (req.params.name === 'makeitfail') {
+            if (req.params.name === 'make_it_fail') {
                 throw Error('User triggered failure');
             }
             Logger.Info('API: "GET /api/say-hello/:name" called with param: ' + name);
             res.status(250).json({
-                response: DemoController.SUCCESS_MSG,
+                message: DemoController.SUCCESS_MSG,
             });
         } catch (err) {
             Logger.Err(err, true);
             res.status(400).json({
-                response: DemoController.ERR_MSG,
+                error: err.message,
             });
         }
     }

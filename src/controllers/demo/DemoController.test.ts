@@ -7,6 +7,7 @@
 import * as supertest from 'supertest';
 
 import {} from 'jasmine';
+import { OK, BAD_REQUEST } from 'http-status-codes';
 import { SuperTest, Test } from 'supertest';
 import { Logger } from '@overnightjs/logger';
 
@@ -30,23 +31,23 @@ describe('DemoController', () => {
 
     describe('API: "/api/say-hello/:name"', () => {
 
-        const { SUCCESS_MSG, ERR_MSG } = DemoController;
+        const { SUCCESS_MSG } = DemoController;
 
-        it(`should return a JSON object with the message "${SUCCESS_MSG}" and a status code of 250
-            if message was successful`, done => {
+        it(`should return a JSON object with the message "${SUCCESS_MSG}" and a status code of 
+            "${OK}" if message was successful`, done => {
 
             agent.get('/api/say-hello/seanmaxwell')
                 .end((err, res) => {
                     if (err) {
                         Logger.Err(err, true);
                     }
-                    expect(res.status).toBe(250);
+                    expect(res.status).toBe(OK);
                     expect(res.body.response).toBe(SUCCESS_MSG);
                     done();
                 });
         });
 
-        it(`should return a JSON object with the message "${ERR_MSG}" and a status code of 400
+        it(`should return a JSON object with the error param and a status code of "${BAD_REQUEST}"
             if message was unsuccessful`, done => {
 
             agent.get('/api/say-hello/makeitfail')
@@ -54,8 +55,8 @@ describe('DemoController', () => {
                     if (err) {
                         Logger.Err(err, true);
                     }
-                    expect(res.status).toBe(400);
-                    expect(res.body.response).toBe(ERR_MSG);
+                    expect(res.status).toBe(BAD_REQUEST);
+                    expect(res.body.error).toBeTruthy();
                     done();
                 });
         });
