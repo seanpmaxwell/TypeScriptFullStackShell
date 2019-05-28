@@ -4,6 +4,7 @@
  * created by Sean Maxwell Jan 21, 2019
  */
 
+import { OK, BAD_REQUEST } from 'http-status-codes';
 import { Controller, Get } from '@overnightjs/core';
 import { Logger } from '@overnightjs/logger';
 import { Request, Response } from 'express';
@@ -23,12 +24,12 @@ class DemoController {
                 throw Error('User triggered failure');
             }
             Logger.Info('API: "GET /api/say-hello/:name" called with param: ' + name);
-            res.status(250).json({
+            res.status(OK).json({
                 message: DemoController.SUCCESS_MSG + name,
             });
         } catch (err) {
             Logger.Err(err, true);
-            res.status(400).json({
+            res.status(BAD_REQUEST).json({
                 error: err.message,
             });
         }

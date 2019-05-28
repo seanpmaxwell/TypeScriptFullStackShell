@@ -32,25 +32,27 @@ describe('DemoController', () => {
     describe('API: "/api/say-hello/:name"', () => {
 
         const { SUCCESS_MSG } = DemoController;
+        const name = 'seanmaxwell';
+        const message = SUCCESS_MSG + name;
 
-        it(`should return a JSON object with the message "${SUCCESS_MSG}" and a status code of 
-            "${OK}" if message was successful`, done => {
+        it(`should return a JSON object with the message "${message}" and a status code
+            of "${OK}" if message was successful`, done => {
 
-            agent.get('/api/say-hello/seanmaxwell')
+            agent.get('/api/say-hello/' + name)
                 .end((err, res) => {
                     if (err) {
                         Logger.Err(err, true);
                     }
                     expect(res.status).toBe(OK);
-                    expect(res.body.response).toBe(SUCCESS_MSG);
+                    expect(res.body.message).toBe(message);
                     done();
                 });
         });
 
-        it(`should return a JSON object with the error param and a status code of "${BAD_REQUEST}"
+        it(`should return a JSON object with the "error" param and a status code of "${BAD_REQUEST}"
             if message was unsuccessful`, done => {
 
-            agent.get('/api/say-hello/makeitfail')
+            agent.get('/api/say-hello/make_it_fail')
                 .end((err, res) => {
                     if (err) {
                         Logger.Err(err, true);
