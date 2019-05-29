@@ -24,12 +24,12 @@ class DemoController {
                 throw Error('User triggered failure');
             }
             Logger.Info(DemoController.SUCCESS_MSG  + name);
-            res.status(OK).json({
+            return res.status(OK).json({
                 message: DemoController.SUCCESS_MSG + name,
             });
         } catch (err) {
             Logger.Err(err, true);
-            res.status(BAD_REQUEST).json({
+            return res.status(BAD_REQUEST).json({
                 error: err.message,
             });
         }
