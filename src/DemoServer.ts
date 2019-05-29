@@ -16,18 +16,17 @@ import { Logger } from '@overnightjs/logger';
 class DemoServer extends Server {
 
     private readonly SERVER_START_MSG = 'Demo server started on port: ';
-    private readonly DEV_MSG = 'Express Server is running in development mode. Not front-end ' +
+    private readonly DEV_MSG = 'Express Server is running in development mode. No front-end ' +
         'content is being served.';
 
 
     constructor() {
-        super();
+        super(true);
         this.app.use(bodyParser.json());
         this.app.use(bodyParser.urlencoded({extended: true}));
         this.setupControllers();
         // Point to front-end code
         if (process.env.NODE_ENV !== 'production') {
-            Logger.Info('Starting server in development mode');
             this.app.get('*', (req, res) => res.send(this.DEV_MSG));
         } else {
             this.serveFrontEndProd();
@@ -43,7 +42,6 @@ class DemoServer extends Server {
                 ctlrInstances.push(new Controller());
             }
         }
-        this.showLogs = true;
         super.addControllers(ctlrInstances);
     }
 

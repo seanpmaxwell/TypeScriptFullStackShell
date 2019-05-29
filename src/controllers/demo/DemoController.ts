@@ -23,7 +23,7 @@ class DemoController {
             if (name === 'make_it_fail') {
                 throw Error('User triggered failure');
             }
-            Logger.Info('API: "GET /api/say-hello/:name" called with param: ' + name);
+            Logger.Info(DemoController.SUCCESS_MSG  + name);
             res.status(OK).json({
                 message: DemoController.SUCCESS_MSG + name,
             });
